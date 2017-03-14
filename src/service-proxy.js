@@ -1,0 +1,30 @@
+import errors from 'feathers-errors';
+import mongoose from 'mongoose';
+import service from 'feathers-mongoose';
+import Promise from 'bluebird';
+
+mongoose.Promise = Promise;
+
+const services = { };
+
+export default function (params) {
+  const locationGroup = params.locationGroup;
+
+  if (!locationGroup) throw new errors.BadRequest('locationGroup must be defined');
+
+  delete params.locationGroup;
+
+  const connectionUrl = `${this.dbUrl}/${this.dbPrefix}-${locationGroup}`;
+  const serviceName = `${connectionUrl}/${this.collectionName}`;
+
+  if (!services[serviceName]) {
+    // setting up a db connection
+    const connection = mongoose.createConnection(connectionUrl);
+    // creating a model
+    const model = connection.model(this.collectionName, this.schema);
+    // creating a service
+    services[serviceName] = service({ Model: model });
+  }
+
+  return services[serviceName];
+}
