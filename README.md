@@ -1,9 +1,9 @@
-feathers-multi-service
+feathers-lg-multi-service-mongoose
 
 ## Installation
 
 ```bash
-npm install feathers-multi-service --save
+npm install feathers-lg-multi-service-mongoose --save
 ```
 
 ## License
