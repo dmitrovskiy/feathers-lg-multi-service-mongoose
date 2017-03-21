@@ -1,7 +1,7 @@
 {
   "name": "feathers-lg-multi-service-mongoose",
   "description": "A Feathers service wrapper of feathers-multi-service package",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/dmitrovskiy/feathers-lg-multi-service-mongoose",
   "main": "lib/",
   "keywords": [
@@ -32,7 +32,6 @@
     "test": "npm run lint && npm run ava",
     "lint": "eslint --ignore-path .gitignore ./",
     "ava": "ava -v ./test/**/**/*.test.js",
-    "build": "redrun clean babel",
     "clean": "del ./dist",
     "babel": "babel --source-maps --copy-files -d lib/ src/",
     "publish": "npm run babel"

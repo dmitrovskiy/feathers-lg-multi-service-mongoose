@@ -1,7 +1,8 @@
 export default ({ defaultLocationGroup = false }) => {
   return (req, res, next) => {
     let locationGroup = defaultLocationGroup;
-    if (locationGroup) {
+
+    if (locationGroup !== 'false' && locationGroup !== false && locationGroup !== '') {
       req.feathers.locationGroup = locationGroup;
       return next();
     }
