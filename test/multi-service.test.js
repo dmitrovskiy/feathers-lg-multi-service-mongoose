@@ -31,3 +31,34 @@ test('should return a multi-service instance', () => {
 
   assert.isObject(service(options));
 });
+
+test('should return a dbUrl and dbPrefix from config', () => {
+  const config = { dbUrl: 'mongodb://localhost', dbPrefix: 'some' };
+  const options = {
+    app: {
+      get(key) {
+        return config[key];
+      }
+    },
+    collectionName: 'test',
+    schema: {}
+  };
+
+  const result = service(options);
+  assert.equal(result.dbUrl, config.dbUrl);
+  assert.equal(result.dbPrefix, config.dbPrefix);
+});
+
+test('should return a dbUrl and dbPrefix from options', () => {
+  const options = {
+    app: { },
+    collectionName: 'test',
+    schema: {},
+    dbUrl: 'mongodb://localhost',
+    dbPrefix: 'some'
+  };
+
+  const result = service(options);
+  assert.equal(result.dbUrl, options.dbUrl);
+  assert.equal(result.dbPrefix, options.dbPrefix);
+});
