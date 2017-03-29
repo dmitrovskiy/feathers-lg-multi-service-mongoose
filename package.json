@@ -1,7 +1,7 @@
 {
   "name": "feathers-lg-multi-service-mongoose",
   "description": "A Feathers service wrapper of feathers-multi-service package",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "homepage": "https://github.com/dmitrovskiy/feathers-lg-multi-service-mongoose",
   "main": "lib/",
   "keywords": [
@@ -29,12 +29,17 @@
     "node": ">= 4"
   },
   "scripts": {
-    "test": "npm run lint && npm run ava",
+    "test": "redrun lint ava",
     "lint": "eslint --ignore-path .gitignore ./",
-    "ava": "ava -v ./test/**/**/*.test.js",
-    "clean": "del ./dist",
+    "coverage": "nyc npm test && nyc report --reporter=text-summary",
+    "ava": "npm run ava:unit",
+    "ava:unit": "NODE_ENV=test ava -v ./test/**/**/*.test.js",
+    "build": "redrun clean babel",
+    "clean": "del ./lib",
     "babel": "babel --source-maps --copy-files -d lib/ src/",
-    "publish": "npm run babel"
+    "release:patch": "npm test && npm build && npm version patch && git push origin --tags",
+    "release:minor": "npm test && npm build && npm version minor && git push origin --tags",
+    "release:major": "npm test && npm build && npm version major && git push origin --tags"
   },
   "ava": {
     "babel": "inherit",
@@ -45,11 +50,12 @@
     "concurrency": 5
   },
   "dependencies": {
+    "bluebird": "^3.4.6",
+    "feathers-errors": "2.4.0",
+    "feathers-mongoose": "3.5.3",
     "feathers-multi-service": "0.0.4",
     "mongoose": "4.6.5",
-    "feathers-mongoose": "3.5.3",
-    "bluebird": "^3.4.6",
-    "feathers-errors": "2.4.0"
+    "redrun": "^5.9.11"
   },
   "devDependencies": {
     "ava": "^0.15.2",
@@ -60,13 +66,14 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-es2016": "^6.16.0",
     "babel-preset-es2017": "^6.16.0",
-    "randomstring": "^1.1.5",
-    "feathers": "2.0.2",
     "chai": "3.5.0",
     "eslint": "^3.16.1",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.0"
+    "eslint-plugin-react": "^6.10.0",
+    "feathers": "2.0.2",
+    "nyc": "^9.0.1",
+    "randomstring": "^1.1.5"
   }
 }
