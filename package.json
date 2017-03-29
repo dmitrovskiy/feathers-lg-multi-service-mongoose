@@ -1,7 +1,7 @@
 {
   "name": "feathers-lg-multi-service-mongoose",
   "description": "A Feathers service wrapper of feathers-multi-service package",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/dmitrovskiy/feathers-lg-multi-service-mongoose",
   "main": "lib/",
   "keywords": [
